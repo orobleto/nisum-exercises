@@ -153,7 +153,7 @@ public class UserController implements GenericRestController<User, String> {
 		}
 	}
 
-	@Operation(summary = "Obtiene un Usuario por el id(UUID)")
+	@Operation(summary = "Obtiene la lista de usuarios")
 	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "OK", content = {
 			@Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = User.class))) }),
 			@ApiResponse(responseCode = "404", description = "Elemento No Encontrado: ", content = {
