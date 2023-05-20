@@ -956,3 +956,4 @@ org.eclipse.core.runtime.CoreException: Could not resolve artifact org.webjars:s
 2023-05-20 16:27:03,585 [Worker-70: Launching Executing install in C__Users_Boreal_Documents_Java_Nisum_users] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B -Dstyle.color=always install
 2023-05-20 16:27:15,848 [Worker-71: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
 2023-05-20 16:27:15,885 [Worker-71: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2023-05-20 16:27:15,886 [Worker-71: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\Boreal\Documents\Java\Nisum\users\src\test\resources

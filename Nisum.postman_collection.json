@@ -1,0 +1,161 @@
+{
+	"info": {
+		"_postman_id": "5f5c781d-e464-4cb2-8afc-56dc5616e8e3",
+		"name": "Nisum",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19645488",
+		"_collection_link": "https://restless-water-26516.postman.co/workspace/Personal~58534470-f329-4451-921d-d9eda5e94a4d/collection/19645488-5f5c781d-e464-4cb2-8afc-56dc5616e8e3?action=share&creator=19645488&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "findById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/users/findById/6706ed36-82cc-4cc1-a4b8-a395650440ad",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users",
+								"findById",
+								"6706ed36-82cc-4cc1-a4b8-a395650440ad"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/users/findAll",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users",
+								"findAll"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "insert",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Mariana Bracho\",\r\n    \"email\": \"mbracho@nisum.cl\",\r\n    \"password\": \"Hola1234\",\r\n    \"isActive\": false,\r\n    \"phones\": [\r\n        {\r\n            \"countryCode\": \"98\",\r\n            \"cityCode\": \"9\",\r\n            \"number\": \"22025551\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/users/insert",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users",
+								"insert"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Mariana Bracho\",\r\n    \"email\": \"mbracho@nisum.\",\r\n    \"password\": \"1235Hn\",\r\n    \"isActive\": false,\r\n    \"phones\": [\r\n        {\r\n            \"countryCode\": \"98\",\r\n            \"cityCode\": \"9\",\r\n            \"number\": \"22025551\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/users/update",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n        \"id\": \"102423b6-76ae-4080-b9c4-e23bcf9ec34a\",\r\n        \"name\": \"Octavio Robleto\",\r\n        \"email\": \"orobleto@nisum.cl\",\r\n        \"password\": \"1234\",\r\n        \"isActive\": true,\r\n        \"created\": \"2023-05-20T15:45:56.027467\",\r\n        \"modified\": \"2023-05-20T15:45:56.027467\",\r\n        \"phones\": [\r\n            {\r\n                \"countryCode\": \"56\",\r\n                \"cityCode\": \"9\",\r\n                \"number\": \"922025551\"\r\n            }\r\n        ],\r\n        \"last_login\": null\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/users/delete",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "URL",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
