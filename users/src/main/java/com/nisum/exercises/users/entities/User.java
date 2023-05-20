@@ -20,7 +20,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.Email;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -42,11 +42,10 @@ public class User {
 	private UUID id;
 	@NotEmpty(message = "Debe enviar el nombre [name]")
 	private String name;
-
 	@NotEmpty(message = "Debe enviar el correo [email]")
-	@Email(message = "Debe ser un correo [email] electronico valido")
 	@Column(unique = true)
 	private String email;
+	@NotEmpty(message = "Debe enviar la clave [password]")
 	private String password;
 	private Boolean isActive;
 	@CreationTimestamp
@@ -55,6 +54,7 @@ public class User {
 	private LocalDateTime modified;
 	@JsonProperty("last_login")
 	private LocalDateTime lastLogin;
+	@Valid
 	@Singular
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id")

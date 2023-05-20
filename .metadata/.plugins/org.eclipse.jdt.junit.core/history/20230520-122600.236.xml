@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="ValidateDataTypeServiceTest" project="users" tests="4" started="4" failures="0" errors="0" ignored="0">
+  <testsuite name="com.nisum.exercises.users.services.ValidateDataTypeServiceTest" time="0.337" displayname="ValidateDataTypeServiceTest" uniqueid="[engine:junit-jupiter]/[class:com.nisum.exercises.users.services.ValidateDataTypeServiceTest]">
+    <testcase name="testBadPassword" classname="com.nisum.exercises.users.services.ValidateDataTypeServiceTest" time="0.325" displayname="testBadPassword()" uniqueid="[engine:junit-jupiter]/[class:com.nisum.exercises.users.services.ValidateDataTypeServiceTest]/[method:testBadPassword()]"/>
+    <testcase name="testBadEmail" classname="com.nisum.exercises.users.services.ValidateDataTypeServiceTest" time="0.003" displayname="testBadEmail()" uniqueid="[engine:junit-jupiter]/[class:com.nisum.exercises.users.services.ValidateDataTypeServiceTest]/[method:testBadEmail()]"/>
+    <testcase name="testGoodPassword" classname="com.nisum.exercises.users.services.ValidateDataTypeServiceTest" time="0.003" displayname="testGoodPassword()" uniqueid="[engine:junit-jupiter]/[class:com.nisum.exercises.users.services.ValidateDataTypeServiceTest]/[method:testGoodPassword()]"/>
+    <testcase name="testGoodEmail" classname="com.nisum.exercises.users.services.ValidateDataTypeServiceTest" time="0.002" displayname="testGoodEmail()" uniqueid="[engine:junit-jupiter]/[class:com.nisum.exercises.users.services.ValidateDataTypeServiceTest]/[method:testGoodEmail()]"/>
+  </testsuite>
+</testrun>

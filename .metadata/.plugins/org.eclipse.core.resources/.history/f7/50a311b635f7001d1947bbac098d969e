@@ -1,0 +1,46 @@
+package com.nisum.exercises.users.entities;
+
+import org.springframework.stereotype.Component;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Table(name = "phones")
+@Component
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class Phone {
+	@ToString.Exclude
+	@JsonIgnore
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	private Long id;
+	@Column(nullable = false, columnDefinition = "VARCHAR(2)")
+	@Size(min = 2, max = 2, message = "El codigo pais [countryCode] debe ser de dos Digitos")
+	@NotEmpty(message = "Debe enviar el codigo pais [countryCode]")
+	private String countryCode;
+	@Column(nullable = false, columnDefinition = "VARCHAR(1)")
+	@Size(min = 1, max = 1, message = "El codigo de ciudad [cityCode] debe ser de un Digito")
+	@NotEmpty(message = "Debe enviar el codigo de ciudad [cityCode]")
+	private String cityCode;
+	@Column(nullable = false, columnDefinition = "VARCHAR(10)")
+	@Size(min = 8, max = 10, message = "El numero [number] debe contener entre 8 y 10 Digitos")
+	@NotEmpty(message = "Debe enviar el numero [number]")
+	private String number;
+
+}

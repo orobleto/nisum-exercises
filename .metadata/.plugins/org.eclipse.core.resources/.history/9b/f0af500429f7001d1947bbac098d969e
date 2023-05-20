@@ -1,0 +1,42 @@
+package com.nisum.exercises.users.services;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class ValidateDataTypeServiceTest {
+	@Autowired
+	private ValidateDataTypeService dataTypeService;
+
+	@Test
+	void testBadEmail() {
+		String email = "aaaaaaa@dominio";
+		assertEquals("Debe ser un correo electrónico válido aaaaaaa@dominio.cl", dataTypeService.validateEmail(email));
+	}
+
+	@Test
+	void testBadPassword() {
+		String password = "12345678";
+		assertEquals(
+				"La contraseña debe tener al entre 8 y 16 caracteres, al menos un dígito, al menos una minúscula y al menos una mayúscula. NO puede tener otros símbolos.",
+				dataTypeService.validatePassword(password));
+
+	}
+
+	@Test
+	void testGoodEmail() {
+		String email = "aaaaaaa@dominio.cl";
+		assertEquals(null, dataTypeService.validateEmail(email));
+	}
+
+	@Test
+	void testGoodPassword() {
+		String password = "Aaaa1234";
+		assertEquals(null, dataTypeService.validatePassword(password));
+
+	}
+
+}

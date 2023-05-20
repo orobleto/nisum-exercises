@@ -1,0 +1,43 @@
+package com.nisum.exercises.users.services;
+
+import static com.nisum.exercises.users.utilities.StringUtils.isEmpty;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
+import org.springframework.stereotype.Service;
+
+@Service
+public class ValidateDataTypeService {
+	private static Logger logger = LogManager.getLogger();
+
+	@Autowired
+	private Environment environment;
+	@Value("${regex.password.value}")
+	private String passwordREGEX;
+
+	@Value("${regex.email.value}")
+	private String emailREGEX;
+
+	public String validateEmail(String email) {
+		logger.info(emailREGEX);
+		//logger.info(environment.getProperty("regex.email.message"));
+		if (isEmpty(email) || !email.matches(emailREGEX)) {
+			return "";
+
+		}
+		return null;
+	}
+
+	public String validatePassword(String password) {
+		logger.info(passwordREGEX);
+		//logger.info(environment.getProperty("regex.password.message"));
+		if (isEmpty(password) || !password.matches(passwordREGEX)) {
+			return "";
+		}
+		return null;
+	}
+
+}

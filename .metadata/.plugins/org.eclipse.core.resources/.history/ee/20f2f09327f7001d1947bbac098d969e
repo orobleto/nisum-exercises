@@ -1,0 +1,36 @@
+package com.nisum.exercises.users.services;
+
+import static com.nisum.exercises.users.utilities.StringUtils.isEmpty;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
+@Service
+public class ValidateDataTypeService {
+
+	@Value("${regex.password.value}")
+	private String passwordREGEX;
+
+	@Value("${regex.email.value}")
+	private String emailREGEX;
+
+	public String validateEmail(String email) {
+
+		if (isEmpty(email) || !email.matches(emailREGEX)) {
+			return "";
+
+		}
+		return null;
+	}
+
+	public String validatePassword(String password) {
+
+		if (isEmpty(password) || !password.matches(passwordREGEX)) {
+			return "";
+		}
+		return null;
+	}
+
+}

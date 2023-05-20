@@ -1,0 +1,23 @@
+logging.level.root=debug
+
+
+spring.datasource.url=jdbc:h2:mem:testdb
+spring.datasource.driverClassName=org.h2.Driver
+spring.datasource.username=sa
+spring.datasource.password=
+
+spring.jpa.show-sql=true
+spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+spring.jpa.hibernate.ddl-auto=update
+
+spring.h2.console.enabled=true
+spring.h2.console.path=/h2
+
+#REGEX
+regex.password=^(?=\\w*\\d)(?=\\w*[A-Z])(?=\\w*[a-z])\\S{8,16}$
+#regex.password.message=La contraseña debe tener al entre 8 y 16 caracteres, al menos un dígito, al menos una minuscula y al menos una mayuscula. NO puede tener otros simbolos.
+regex.email=([a-zA-Z0-9]+(\\.?[a-zA-Z0-9])*)+@(([a-zA-Z]+)\\.([a-zA-Z]+))
+#regex.email.message=Debe ser un correo electronico valido aaaaaaa@dominio.cl
+
+
+

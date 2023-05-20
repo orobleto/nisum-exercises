@@ -2,6 +2,7 @@ package com.nisum.exercises.users.controllers;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -12,10 +13,15 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nisum.exercises.users.entities.ErrorMessage;
+import com.nisum.exercises.users.entities.Phone;
 import com.nisum.exercises.users.entities.User;
 import com.nisum.exercises.users.enums.TypeOfMessage;
+import com.nisum.exercises.users.exceptions.ExceptionNisum;
 import com.nisum.exercises.users.repositories.UserRepository;
 import com.nisum.exercises.users.services.ResponseErrorMessageService;
+import com.nisum.exercises.users.services.ValidateDataTypeService;
+import com.nisum.exercises.users.utilities.StringUtils;
 
 import jakarta.validation.Valid;
 
@@ -29,15 +35,17 @@ public class UserController implements GenericRestController<User, String> {
 	@Autowired
 	private ResponseErrorMessageService messageService;
 
+	@Autowired
+	private ValidateDataTypeService dataTypeService;
+
 	public ResponseEntity<?> findById(String id) {
 		logger.debug(id);
 		try {
 			UUID uuid = UUID.fromString(id);
-			
+
 			User user = userRepository.findById(uuid).orElse(null);
 			if (null == user) {
-				return ResponseEntity.status(200)
-						.body(messageService.getErrorMessage(TypeOfMessage.NO_ELEMENTS, id));
+				return ResponseEntity.status(200).body(messageService.getErrorMessage(TypeOfMessage.NO_ELEMENTS, id));
 			}
 
 			return ResponseEntity.ok(user);
@@ -49,8 +57,23 @@ public class UserController implements GenericRestController<User, String> {
 	}
 
 	public ResponseEntity<?> insert(@Valid User user, BindingResult bindingResult) {
+		logger.debug(user);
+		ErrorMessage errorMessage = getValidations(user, bindingResult);
+		if (!(null == errorMessage)) {
+			return ResponseEntity.status(200).body(errorMessage);
+		}
 
-		return null;
+		if (userRepository.findByEmail(user.getEmail()).isPresent()) {
+			return ResponseEntity.status(200).body(messageService.getErrorMessage(TypeOfMessage.VALIDATION_ERROR,
+					user.getEmail().concat(" es un correo ya registrado")));
+		}
+
+		try {
+			return ResponseEntity.ok(userRepository.save(user));
+		} catch (ExceptionNisum e) {
+			return ResponseEntity.status(500)
+					.body(messageService.getErrorMessage(TypeOfMessage.GENERIC_ERROR, e.getMessage()));
+		}
 	}
 
 	public ResponseEntity<?> update(@Valid User user, BindingResult bindingResult) {
@@ -75,6 +98,40 @@ public class UserController implements GenericRestController<User, String> {
 	public ResponseEntity<?> save(User user, BindingResult bindingResult) {
 
 		return null;
+	}
+
+	private ErrorMessage getValidations(User user, BindingResult bindingResult) {
+		ErrorMessage errorMessage = null;
+		String validateEmail = dataTypeService.validateEmail(user.getEmail());
+		String validatePassword = dataTypeService.validatePassword(user.getPassword());
+		if (bindingResult.hasErrors()) {
+			errorMessage = messageService.getErrorMessage(TypeOfMessage.VALIDATION_ERROR, bindingResult);
+		}
+
+		if (!StringUtils.isEmpty(validateEmail)) {
+			errorMessage = getErrorMessage(errorMessage, validateEmail);
+		}
+
+		if (!StringUtils.isEmpty(validatePassword)) {
+			errorMessage = getErrorMessage(errorMessage, validatePassword);
+		}
+
+		for (Phone phone : user.getPhones()) {
+			String validatePhone = dataTypeService.validatePhone(phone);
+			if (!StringUtils.isEmpty(validatePhone)) {
+				errorMessage = getErrorMessage(errorMessage, phone.toString().concat(": ").concat(validatePhone));
+			}
+		}
+
+		return errorMessage;
+	}
+
+	private ErrorMessage getErrorMessage(ErrorMessage errorMessage, String message) {
+		if (!(errorMessage == null)) {
+			errorMessage.setMessage(errorMessage.getMessage().concat("; ").concat(message));
+			return errorMessage;
+		}
+		return ErrorMessage.builder().message(message).build();
 	}
 
 }

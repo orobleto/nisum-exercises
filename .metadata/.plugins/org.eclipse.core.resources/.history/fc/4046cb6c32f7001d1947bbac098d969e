@@ -1,0 +1,48 @@
+package com.nisum.exercises.users.services;
+
+import static com.nisum.exercises.users.utilities.StringUtils.*;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
+import com.nisum.exercises.users.entities.Phone;
+
+@Service
+public class ValidateDataTypeService {
+
+	@Value("${regex.password.value}")
+	private String passwordREGEX;
+	@Value("${regex.password.message}")
+	private String passwordMessage;
+	@Value("${regex.email.value}")
+	private String emailREGEX;
+	@Value("${regex.email.message}")
+	private String emailMesssage;
+
+	public String validateEmail(String email) {
+		if (isEmpty(email) || !email.matches(emailREGEX)) {
+			return emailMesssage;
+		}
+		return null;
+	}
+
+	public String validatePassword(String password) {
+		if (isEmpty(password) || !password.matches(passwordREGEX)) {
+			return passwordMessage;
+		}
+		return null;
+	}
+
+	public String validatePhone(Phone phone) {
+		String message = "";
+		if (null == phone) {
+			return null;
+		}
+
+		if (!isEmpty(phone.getCountryCode()) && !isNumber(emailMesssage)) {
+			
+		}
+		return null;
+	}
+
+}

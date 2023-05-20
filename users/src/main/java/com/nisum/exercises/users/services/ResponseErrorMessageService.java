@@ -20,7 +20,7 @@ public class ResponseErrorMessageService {
 		} else if (object instanceof BindingResult) {
 			BindingResult bindingResult = (BindingResult) object;
 			message = bindingResult.getAllErrors().stream().map(e -> e.getDefaultMessage())
-					.collect(Collectors.joining(", "));
+					.collect(Collectors.joining("; "));
 		}
 		ErrorMessage errorMessage = ErrorMessage.builder().message(typeOfMessage.getMessage().concat(message)).build();
 		logger.debug(errorMessage);

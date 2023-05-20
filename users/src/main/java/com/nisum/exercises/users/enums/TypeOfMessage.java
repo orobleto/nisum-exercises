@@ -1,7 +1,7 @@
 package com.nisum.exercises.users.enums;
 
 public enum TypeOfMessage {
-	VALIDATION_ERROR("Error de validación de campos: "), GENERIC_ERROR("Error Generico: "),
+	VALIDATION_ERROR("Error de validación: "), GENERIC_ERROR("Error Generico: "),
 	NO_ELEMENTS("No hay elementos que mostrar con: "), DELETED_ELEMENT("Elemento Eliminado: "),
 	DATA_TYPE_ERROR("No es el tipo de dato requerido: ");
 
