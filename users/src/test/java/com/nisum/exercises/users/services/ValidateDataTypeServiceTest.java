@@ -50,7 +50,7 @@ class ValidateDataTypeServiceTest {
 	void testBadPhone() {
 		Phone phone = Phone.builder().countryCode("hh").cityCode("a").number("hggg555").build();
 		assertEquals(
-				"El codigo de pais debe ser numerico; El codigo de ciudad debe ser numerico; El numero debe ser numerico",
+				"El codigo de pais [countryCode] debe ser numerico; El codigo de ciudad [cityCode] debe ser numerico; El numero [number] debe ser numerico",
 				dataTypeService.validatePhone(phone));
 
 	}
