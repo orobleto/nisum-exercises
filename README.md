@@ -19,7 +19,9 @@
 
 ## Documentacion
 * [OpenAPI V3.0](https://www.openapis.org) - con Swagger UI
+
 Acceso: http://server:port/swagger-ui/index.html
+
 Ejemplo: http://localhost:8080/swagger-ui/index.html
 
 ***Se agrega proyecto de POSTMAN para pruebas***
