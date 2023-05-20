@@ -2,7 +2,6 @@ package com.nisum.exercises.users.controllers;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -78,19 +77,49 @@ public class UserController implements GenericRestController<User, String> {
 
 	public ResponseEntity<?> update(@Valid User user, BindingResult bindingResult) {
 
-		return null;
+		logger.debug(user);
+		ErrorMessage errorMessage = getValidations(user, bindingResult);
+		if (!(null == errorMessage)) {
+			return ResponseEntity.status(200).body(errorMessage);
+		}
+
+		if (!userRepository.findByEmail(user.getEmail()).isPresent()) {
+			return ResponseEntity.status(200).body(messageService.getErrorMessage(TypeOfMessage.VALIDATION_ERROR,
+					user.getEmail().concat(" No se encuentra registrado")));
+		}
+
+		try {
+			User userDB = userRepository.findByEmail(user.getEmail()).get();
+			// no se actualizan estos datos
+			user.setId(userDB.getId());
+			user.setCreated(userDB.getCreated());
+			user.setLastLogin(userDB.getLastLogin());
+			return ResponseEntity.ok(userRepository.save(user));
+		} catch (ExceptionNisum e) {
+			return ResponseEntity.status(500)
+					.body(messageService.getErrorMessage(TypeOfMessage.GENERIC_ERROR, e.getMessage()));
+		}
 	}
 
 	public ResponseEntity<?> delete(@Valid User user, BindingResult bindingResult) {
-
-		return null;
+		if (!userRepository.findByEmail(user.getEmail()).isPresent()) {
+			return ResponseEntity.status(200).body(messageService.getErrorMessage(TypeOfMessage.VALIDATION_ERROR,
+					user.getEmail().concat(" No se encuentra registrado")));
+		}
+		try {
+			userRepository.delete(userRepository.findByEmail(user.getEmail()).get());
+			return ResponseEntity.ok(messageService.getErrorMessage(TypeOfMessage.DELETED_ELEMENT, user.getEmail()));
+		} catch (ExceptionNisum e) {
+			return ResponseEntity.status(500)
+					.body(messageService.getErrorMessage(TypeOfMessage.GENERIC_ERROR, e.getMessage()));
+		}
 	}
 
 	public ResponseEntity<?> findAll() {
 		List<User> users = userRepository.findAll();
 		logger.debug(users);
 		if (null == users || users.isEmpty()) {
-			ResponseEntity.status(204).body(messageService.getErrorMessage(TypeOfMessage.NO_ELEMENTS, ""));
+			ResponseEntity.status(200).body(messageService.getErrorMessage(TypeOfMessage.NO_ELEMENTS, ""));
 		}
 		return ResponseEntity.ok(users);
 	}
